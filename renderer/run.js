@@ -1,6 +1,8 @@
 const { ipcRenderer: ipc } = require('electron')
 const { files, ...opts } = window.__args__
 
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
+
 if (!opts.interactive) {
   require('./console')
 }
