@@ -1,10 +1,26 @@
 const { remote } = require('electron')
 const remoteConsole = remote.require('console')
 
-console.log = (...args) => {
-  remoteConsole.log(...args)
-}
+process.env.DEBUG_COLORS_NODE = 'on'
 
-console.dir = (...args) => {
-  remoteConsole.dir(...args)
-}
+;[
+  'log',
+  'info',
+  'warn',
+  'error',
+  'dir',
+  'table',
+  'count',
+  'countReset',
+  'group',
+  'groupCollapse',
+  'groupEnd',
+  'trace',
+  'time',
+  'timeEnd',
+  'timeLog'
+].forEach(method => {
+  console[method] = (...args) => {
+    remoteConsole[method](...args)
+  }
+})
